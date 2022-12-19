@@ -97,8 +97,12 @@ class Agent(object):
         return ans
 
 
-for input_file in ["day11-test.txt", "day11.txt"]:
-    print(f"==== {input_file=} ====")
+from utils import DayInfo
+
+day_info = DayInfo(__file__)
+
+for input_file in day_info.input_files:
+    print(f"==== {input_file.name=} ====")
     with open(input_file) as fp:
         data = fp.read().split("\n\n")
     print(">>> Less worried agent")
@@ -108,6 +112,16 @@ for input_file in ["day11-test.txt", "day11.txt"]:
     print(f"{ans=}")
 
     print(">>> More worried agent")
+    """
+    Key Trick for part 2 is as follows
+    The worry_level gets very large the % op takes a lot of time.
+    Since all we care about is the divisibility test we can instead store a smaller number.
+    This number can be worry_level % product of all divisors
+
+    The key learning here is that modulo operation is not an O(1) op.
+
+    Source: https://www.reddit.com/r/adventofcode/comments/zifqmh/comment/j0qzik6/?utm_source=reddit&utm_medium=web2x&context=3
+    """
     prod_divisors = 1
     for monkey in agent.monkeys:
         prod_divisors *= monkey.divisor

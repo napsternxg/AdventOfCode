@@ -47,7 +47,13 @@ print(f"{ans=}")
 
 import matplotlib.pyplot as plt
 
-for input_file in ["day10-test.txt", "day10.txt"]:
+from utils import DayInfo
+
+day_info = DayInfo(__file__)
+
+for input_file in day_info.input_files:
+    print(f"==== {input_file.name=} ====")
+    heatmap = []
     with open(input_file) as fp:
         print(f"{input_file=}")
         ans, CRT = process_cycles(fp, verbose=False)
@@ -56,5 +62,5 @@ for input_file in ["day10-test.txt", "day10.txt"]:
         for row in CRT:
             print("".join(row))
             heatmap.append([int(x == "#") for x in row])
-plt.imshow(heatmap)
-plt.show()
+    plt.imshow(heatmap)
+    plt.show()
